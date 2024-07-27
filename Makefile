@@ -3,7 +3,7 @@ NAME = pipex
 CFLAGS = -Wextra -Wall -Werror
 LIBFT = -L./libft -lft
 
-SRCS =	src/main.c 
+SRCS =	src/main.c src/tools.c src/pipex.c src/init.c src/error.c
 
 OBJS = $(SRCS:.c=.o)
 
