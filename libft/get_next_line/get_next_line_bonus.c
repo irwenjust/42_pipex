@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: likong <likong@student.42.fr>              +#+  +:+       +#+        */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:27:54 by likong            #+#    #+#             */
-/*   Updated: 2024/06/21 11:43:51 by likong           ###   ########.fr       */
+/*   Updated: 2024/07/25 08:33:02 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ char	*get_content(int fd, char *content)
 
 char	*get_next_line(int fd)
 {
-	static char	*content[OPEN_MAX];
+	static char	*content[1024];
 	char		*line;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || fd > OPEN_MAX)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (NULL);
 	content[fd] = get_content(fd, content[fd]);
 	if (!content[fd])
