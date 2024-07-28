@@ -6,12 +6,13 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:32:18 by likong            #+#    #+#             */
-/*   Updated: 2024/07/27 16:01:40 by likong           ###   ########.fr       */
+/*   Updated: 2024/07/28 18:46:59 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
+//doubts here
 static void	init_pipe(t_pipex *data)
 {
 	int	i;
@@ -20,6 +21,7 @@ static void	init_pipe(t_pipex *data)
 	i = 0;
 	if (pipe(fd) == -1)
 		show_error(data, NULL, PIPE);
+	data->fd = fd;
 }
 
 static void	init_path(t_pipex *data, char **envp)
@@ -52,4 +54,5 @@ void	init_data(t_pipex *data, int argc, char **argv, char **envp)
 	data->infile = -1;
 	data->outfile = -1;
 	init_path(data, envp);
+	init_pipe(data);
 }
