@@ -6,11 +6,21 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 11:56:53 by likong            #+#    #+#             */
-/*   Updated: 2024/07/28 18:48:48 by likong           ###   ########.fr       */
+/*   Updated: 2024/07/30 18:34:08 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+static void	handle_cmd_error(int status, char *cmd, t_pipex *data)
+{
+	if (status == -1)
+		show_error(data, cmd, PERMISSION);
+	if (access(cmd, F_OK) == -1 && errno == ENOTDIR)
+		show_error(data, cmd, DIRECTORY);
+	//ft_printf("here\n");
+	show_error(data, cmd, COMMAND);
+}
 
 static char	*combine_path(char *path1, char *path2)
 {
@@ -42,7 +52,7 @@ static int	exec_cmd(char *path, char *cmd, t_pipex *data)
 	char	*abs_cmd;
 	char	**cmds;
 	
-	status = -1;
+	status = 1;
 	cmds = ft_split(cmd, ' ');
 	if (!cmds)
 		show_error(data, "ft_split", MALLOC);
@@ -70,7 +80,7 @@ void	handle_command(t_pipex *data, char *cmd)
 	int		status;
 	char	*path;
 
-	if (!cmd || check_empty(cmd))
+	if (!cmd || cmd[0] == '\0')
 		show_error(data, cmd, PERMISSION);
 	i = -1;
 	status = 1;
@@ -83,6 +93,7 @@ void	handle_command(t_pipex *data, char *cmd)
 		if (status == 0 || status == -1)
 			break ;
 	}
-	// if (status == 1 || status == -1)
-		// tomorrow work
+	ft_printf("status: %d\n", status);
+	if (status == 1 || status == -1)
+		handle_cmd_error(status, cmd, data);
 }

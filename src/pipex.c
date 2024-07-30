@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 10:33:59 by likong            #+#    #+#             */
-/*   Updated: 2024/07/28 12:42:33 by likong           ###   ########.fr       */
+/*   Updated: 2024/07/30 15:06:48 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,46 @@ static void	dup_fd(t_pipex *data, int read_fd, int write_fd)
 
 static void	handle_child(t_pipex *data, int i)
 {
-	open_file(data, i);
+	
+	// ft_printf("infile: %d, outfile: %d\n", data->infile, data->outfile);
 	if (i == 0)
+	{
+		// ft_printf("here?\n");
+		data->infile = open_file(data, i);
 		dup_fd(data, data->infile, data->fd[1]);
+	}
 	else
+	{
+		// ft_printf("also here?\n");
+		data->outfile = open_file(data, i);
 		dup_fd(data, data->fd[0], data->outfile);
-	close(data->fd[0]);
-	close(data->fd[1]);
+	}
+	close_pipe(data);
 	handle_command(data, data->av[i + 2]);
 	success_exit(data);
 }
 
-void	pipex(t_pipex *data)
+int	pipex(t_pipex *data)
 {
 	int	i;
+	int	status;
 
-	i = 0;
-	while (i < 2)
+	i = -1;
+	status = 0;
+	while ((++i) < 2)
 	{
 		data->pid[i] = fork();
 		if (data->pid[i] < 0)
 			show_error(data, NULL, FORK);
 		if (data->pid[i] == 0)
+		{
+			// ft_printf("fd[0]: %d, fd[1]: %d\n", data->fd[0], data->fd[1]);
 			handle_child(data, i);
-		i++;
+		}
 	}
+	close_pipe(data);
+	i = -1;
+	while ((++i) < 2)
+		status = pid_wait(data->pid[i]);
+	return (status);
 }
