@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:31:55 by likong            #+#    #+#             */
-/*   Updated: 2024/07/30 12:17:04 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/01 16:41:46 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@
 # define STDOUT 1
 # define STDIN 0
 
-# define FAILURE 1
+# define FAILSTD 1
 # define SUCCESS 0
+# define FAILEXEC 126
+# define FAILFCMD 127
 
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
+# include <string.h>
 # include <sys/wait.h>
+# include <sys/types.h>
 
 # include "../libft/libft.h"
 # include "../libft/ft_printf/ft_printf.h"
@@ -50,7 +54,6 @@ typedef struct	s_pipex
 	char	**av;
 	char	**ep;
 	char	**path;
-	pid_t	*pid;
 	int		*fd;
 }	t_pipex;
 
@@ -68,7 +71,7 @@ char	*check_slash(char *cmd);
 int		pid_wait(pid_t pid);
 
 //Exit part
-void	show_error(t_pipex *data, char *message, t_error error);
+void	show_error(t_pipex *data, char *message, t_error error, int err_fd);
 void	success_exit(t_pipex *data);
 void	free_close(t_pipex *data);
 void	close_pipe(t_pipex *data);

@@ -6,20 +6,36 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 11:56:53 by likong            #+#    #+#             */
-/*   Updated: 2024/07/30 18:34:08 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/01 19:25:43 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-static void	handle_cmd_error(int status, char *cmd, t_pipex *data)
+static void	handle_cmd_error(char *cmd, t_pipex *data)
 {
-	if (status == -1)
-		show_error(data, cmd, PERMISSION);
-	if (access(cmd, F_OK) == -1 && errno == ENOTDIR)
-		show_error(data, cmd, DIRECTORY);
-	//ft_printf("here\n");
-	show_error(data, cmd, COMMAND);
+	if (!access(cmd, F_OK) && !access(cmd, X_OK))
+	{
+		if (ft_strchr(cmd, '/'))
+			show_error(data, cmd, DIRECTORY, FAILEXEC);
+		else
+			show_error(data, cmd, COMMAND, FAILFCMD);
+	}
+	if (access(cmd, X_OK) == -1 && *cmd == '/')
+		show_error(data, cmd, FILE_NAME, FAILFCMD);
+	if (access(cmd, X_OK) == -1 && !ft_strchr(cmd, '/'))
+		show_error(data, cmd, COMMAND, FAILFCMD);
+	show_error(data, cmd, PERMISSION, FAILEXEC);
+	// if (status == -1)
+	// 	show_error(data, cmd, PERMISSION, FAILEXEC);
+	// if (ft_strchr(cmd, '/'))
+	// 	show_error(data, cmd, DIRECTORY, FAILEXEC);
+	// if (access(cmd, F_OK) == -1 && errno == ENOENT)
+	// 	show_error(data, cmd, FILE_NAME, FAILFCMD);
+	// if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/'))
+	// 	show_error(data, cmd, DIRECTORY, FAILEXEC);
+	// else
+	// 	show_error(data, cmd, COMMAND, FAILEXEC);
 }
 
 static char	*combine_path(char *path1, char *path2)
@@ -52,25 +68,26 @@ static int	exec_cmd(char *path, char *cmd, t_pipex *data)
 	char	*abs_cmd;
 	char	**cmds;
 	
-	status = 1;
+	status = 0;
 	cmds = ft_split(cmd, ' ');
 	if (!cmds)
-		show_error(data, "ft_split", MALLOC);
+		show_error(data, "ft_split", MALLOC, FAILSTD);
 	abs_cmd = combine_path(path, cmds[0]);
 	if (!abs_cmd)
 	{
 		free_matrix(cmds);
-		show_error(data, "combine_path", MALLOC);
+		show_error(data, "combine_path", MALLOC, FAILSTD);
 	}
+	//ft_printf("path: %d, cmd: %s\n", cmds[0], cmd);
 	if (access(abs_cmd, F_OK) == 0)
 	{
 		if (access(abs_cmd, X_OK) == -1)
 			status = -1;
 		else if (execve(abs_cmd, cmds, data->ep) != -1)
-			status = 0;
+			status = 1;
 	}
 	free_matrix(cmds);
-	free(abs_cmd);
+	//free(abs_cmd);
 	return (status);
 }
 
@@ -80,20 +97,21 @@ void	handle_command(t_pipex *data, char *cmd)
 	int		status;
 	char	*path;
 
-	if (!cmd || cmd[0] == '\0')
-		show_error(data, cmd, PERMISSION);
+	if (!cmd || cmd[0] == '\0' || check_empty(cmd))
+		show_error(data, cmd, COMMAND, FAILFCMD);
 	i = -1;
-	status = 1;
+	status = 0;
 	path = check_slash(cmd);
-	if (!data->path || path)
+	if (path)
 		status = exec_cmd("", cmd, data);
+	if (!data->path && access(cmd, X_OK))
+		show_error(data, cmd, FILE_NAME, FAILFCMD);
 	while (data->path && !path && data->path[++i])
 	{
 		status = exec_cmd(data->path[i], cmd, data);
-		if (status == 0 || status == -1)
+		if (status == 1 || status == -1)
 			break ;
 	}
-	ft_printf("status: %d\n", status);
-	if (status == 1 || status == -1)
-		handle_cmd_error(status, cmd, data);
+	if (status == 0 || status == -1)
+		handle_cmd_error(cmd, data);
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 11:55:44 by likong            #+#    #+#             */
-/*   Updated: 2024/07/30 18:34:49 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/01 16:48:36 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,29 @@ static void	show_message(char *message, t_error error)
 		ft_putstr_fd(message, STDERR);
 	if (error == FORK)
 		ft_putstr_fd("fork() error", STDERR);
-	else if (error == ENVP)
-		ft_putstr_fd("ENVP error", STDERR);
 	else if (error == MALLOC)
 		ft_putstr_fd(": malloc() failed", STDERR);
 	else if (error == PIPE)
 		ft_putstr_fd("pipe() creation failed", STDERR);
 	else if (error == PERMISSION)
-		ft_putstr_fd(": Permissions denied", STDERR);
+		ft_putstr_fd(": Permission denied", STDERR);
 	else if (error == FILE_NAME)
-		ft_putstr_fd(": no such file or directory", STDERR);
+		ft_putstr_fd(": No such file or directory", STDERR);
 	else if (error == DUP2)
 		ft_putstr_fd("dup2() error", STDERR);
 	else if (error == DIRECTORY)
-		ft_putstr_fd(": not a directory", STDERR);
+		ft_putstr_fd(": Is a directory", STDERR);
 	else if (error == COMMAND)
 		ft_putstr_fd(": command not found", STDERR);
 	ft_putchar_fd('\n', STDERR);
 }
 
-void	show_error(t_pipex *data, char *message, t_error error)
+void	show_error(t_pipex *data, char *message, t_error error, int err_fd)
 {
 	//ft_printf("error: %d\n", error);
 	show_message(message, error);
 	free_close(data);
-	exit(FAILURE);
+	exit(err_fd);
 }
 
 void	success_exit(t_pipex *data)

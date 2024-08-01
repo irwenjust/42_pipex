@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:40:30 by likong            #+#    #+#             */
-/*   Updated: 2024/07/30 15:00:15 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/01 18:39:00 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int main(int argc, char **argv, char **envp)
 	}
 	init_data(&data, argc, argv, envp);
 	//ft_printf("firstpre:::fd[0]: %d, fd[1]: %d\n", data.fd[0], data.fd[1]);
-	return (pipex(&data));
+	int status = 1;
+
+	status = pipex(&data);
+	free_close(&data);
+	return (status);
 }
 
 // int main(int argc, char* argv[]) {
