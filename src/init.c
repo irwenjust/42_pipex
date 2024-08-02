@@ -6,14 +6,14 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:32:18 by likong            #+#    #+#             */
-/*   Updated: 2024/08/01 18:36:23 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/02 10:29:54 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
 //doubts here
-static void init_pipe(t_pipex *data)
+static void	init_pipe(t_pipex *data)
 {
 	int	i;
 	int	*fd;

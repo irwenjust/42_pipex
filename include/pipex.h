@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:31:55 by likong            #+#    #+#             */
-/*   Updated: 2024/08/01 16:41:46 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/02 11:42:46 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@
 # define FAILEXEC 126
 # define FAILFCMD 127
 
+// Some functions use from these library:
+// fcntl: O_RDONLY, O_WRONLY, O_TRUNC
+// errno: 
 # include <fcntl.h>
-# include <stdio.h>
 # include <errno.h>
-# include <string.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 
@@ -33,7 +34,7 @@
 # include "../libft/ft_printf/ft_printf.h"
 # include "../libft/get_next_line/get_next_line.h"
 
-typedef enum	s_error
+typedef enum s_error
 {
 	FORK,
 	ENVP,
@@ -46,7 +47,7 @@ typedef enum	s_error
 	COMMAND
 }	t_error;
 
-typedef struct	s_pipex
+typedef struct s_pipex
 {
 	int		ac;
 	int		infile;

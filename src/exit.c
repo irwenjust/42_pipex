@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 11:55:44 by likong            #+#    #+#             */
-/*   Updated: 2024/08/01 16:48:36 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/02 10:23:34 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	show_message(char *message, t_error error)
 
 void	show_error(t_pipex *data, char *message, t_error error, int err_fd)
 {
-	//ft_printf("error: %d\n", error);
 	show_message(message, error);
 	free_close(data);
 	exit(err_fd);

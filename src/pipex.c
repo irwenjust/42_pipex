@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 10:33:59 by likong            #+#    #+#             */
-/*   Updated: 2024/08/01 16:46:53 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/02 10:22:22 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ int	pipex(t_pipex *data)
 		if (pid[i] < 0)
 			show_error(data, NULL, FORK, FAILSTD);
 		if (pid[i] == 0)
-		{
-			// ft_printf("fd[0]: %d, fd[1]: %d\n", data->fd[0], data->fd[1]);
 			handle_child(data, i);
-		}
 	}
 	close_pipe(data);
 	i = -1;

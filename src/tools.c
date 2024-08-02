@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:08:12 by likong            #+#    #+#             */
-/*   Updated: 2024/08/01 17:06:14 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/02 10:29:47 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,11 @@ int	open_file(t_pipex *data, int i)
 		file_name = data->av[1];
 		if (access(file_name, F_OK) == 0 && access(file_name, R_OK) == -1)
 			show_error(data, file_name, PERMISSION, FAILSTD);
-		fd  = open(file_name, O_RDONLY, 0444);
+		fd = open(file_name, O_RDONLY, 0444);
 	}
 	else
 	{
 		file_name = data->av[4];
-		//ft_printf("access: %d\n", access(file_name, F_OK));
 		if (access(file_name, F_OK) == 0 && access(file_name, W_OK) == -1)
 			show_error(data, file_name, PERMISSION, FAILSTD);
 		fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
