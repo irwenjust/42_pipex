@@ -1,31 +1,70 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 12:32:18 by likong            #+#    #+#             */
-/*   Updated: 2024/08/04 10:32:08 by likong           ###   ########.fr       */
+/*   Created: 2024/08/03 09:56:24 by likong            #+#    #+#             */
+/*   Updated: 2024/08/04 17:04:22 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
-//doubts here
+static void init_heredoc(t_pipex *data)
+{
+	int		fd;
+	char	*line;
+	
+	fd = open("here_doc", O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+		show_error(data, NULL, HERE_DOC, FAILSTD);
+	while (1)
+	{
+		write(fd, "> ", 2);
+		line = get_next_line(STDIN);
+		if (!line)
+		{
+			break ;
+			// close(fd);
+			// show_error(data, NULL, NEXT_LINE, FAILSTD);
+		}
+		if (ft_strncmp(line, data->av[2], ft_strlen(data->av[2])) == 0)
+			break ;
+		write(fd, line, ft_strlen(line));
+		free(line);
+	}
+	close(fd);
+	if (!line)
+		show_error(data, NULL, NEXT_LINE, FAILSTD);
+	free(line);
+}
+
 static void	init_pipe(t_pipex *data)
 {
 	int	i;
 	int	*fd;
 
 	i = 0;
-	fd = (int *)malloc(2 * sizeof(int));
+	fd = (int *)malloc(2 * (data->ac - 3 - data->here_doc) * sizeof(int));
 	if (!fd)
 		show_error(data, "init_pipe()", MALLOC, FAILSTD);
-	if (pipe(fd) == -1)
+	while (fd && i < (data->ac - 3 - data->here_doc))
 	{
-		free(fd);
-		show_error(data, NULL, PIPE, FAILSTD);
+		if (pipe(fd + i * 2) == -1)
+		{
+			i--;
+			while (i >= 0)
+			{
+				close(fd[i * 2]);
+				close(fd[i * 2 + 1]);
+				i--;
+			}
+			free(fd);
+			show_error(data, NULL, PIPE, FAILSTD);
+		}
+		i++;
 	}
 	data->fd = fd;
 }
@@ -57,8 +96,15 @@ void	init_data(t_pipex *data, int argc, char **argv, char **envp)
 	data->ep = envp;
 	data->infile = -1;
 	data->outfile = -1;
+	data->here_doc = 0;
 	data->path = NULL;
 	data->fd = NULL;
 	init_path(data, envp);
 	init_pipe(data);
+	ft_printf("Or here, cmd: %s\n", argv[1]);
+	if (argc >= 6 && ft_strncmp(argv[1], "here_doc", 8))
+	{
+		init_heredoc(data);
+		data->here_doc = 1;
+	}
 }

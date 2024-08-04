@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:31:55 by likong            #+#    #+#             */
-/*   Updated: 2024/08/02 11:42:46 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/04 09:52:23 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@
 
 // Some functions use from these library:
 // fcntl: O_RDONLY, O_WRONLY, O_TRUNC
-// errno: 
+// sys/types: pid_t
+// sys/wait: waitpid
 # include <fcntl.h>
-# include <errno.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 
 # include "../libft/libft.h"
 # include "../libft/ft_printf/ft_printf.h"
-# include "../libft/get_next_line/get_next_line.h"
 
 typedef enum s_error
 {

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:40:30 by likong            #+#    #+#             */
-/*   Updated: 2024/08/02 10:33:41 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/03 11:33:44 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 5)
 	{
 		ft_printf("Correct format: \ninfile cmd1 cmd2 outfile\n");
-		return (SUCCESS);
+		return (FAILSTD);
 	}
 	init_data(&data, argc, argv, envp);
 	status = pipex(&data);
