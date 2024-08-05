@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 11:01:44 by likong            #+#    #+#             */
-/*   Updated: 2024/08/04 11:22:22 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/05 10:26:15 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ void	free_close(t_pipex *data)
 		close(data->outfile);
 	if (data->path)
 		free_matrix(data->path);
+	if (data->pid)
+		free(data->pid);
 	close_pipe(data);
+	if (data->here_doc == 1)
+		if (unlink("here_doc") == -1)
+			perror("Error deleting file");
 }
 
 int	open_file(t_pipex *data, int i)
@@ -68,7 +73,7 @@ int	open_file(t_pipex *data, int i)
 	}
 	else
 	{
-		file_name = data->av[4];
+		file_name = data->av[data->ac - 1];
 		if (access(file_name, F_OK) == 0 && access(file_name, W_OK) == -1)
 			show_error(data, file_name, PERMISSION, FAILSTD);
 		if (data->here_doc)

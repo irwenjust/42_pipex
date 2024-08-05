@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:33:16 by likong            #+#    #+#             */
-/*   Updated: 2024/08/04 12:20:51 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/05 08:50:26 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # include <fcntl.h>
 # include <errno.h>
+# include <stdio.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 
@@ -56,6 +57,7 @@ typedef struct s_pipex
 	char	**ep;
 	char	**path;
 	int		*fd;
+	int		*pid;
 }	t_pipex;
 
 //Initial data

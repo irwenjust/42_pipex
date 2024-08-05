@@ -33,7 +33,7 @@ $(NAME): $(OBJS)
 	@cc $(OBJS) $(LIBFT) -o $(NAME)
 
 bonus: $(BONUS_OBJS)
-	@$(MAKE) -C ./libft
+	@$(MAKE) --no-print-directory -C ./libft
 	@cc $(BONUS_OBJS) $(LIBFT) -o $(NAME)
 
 clean:
