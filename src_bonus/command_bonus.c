@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 10:58:58 by likong            #+#    #+#             */
-/*   Updated: 2024/08/05 18:38:01 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/06 17:11:12 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,6 @@ static char	*combine_path(char *path1, char *path2)
 	return (res);
 }
 
-static char **handle_quote_space(char ** strs, char *cmd, t_pipex *data)
-{
-	int	i;
-
-	i = -1;
-	while (strs[++i])
-	{
-		strs[i] = ft_strtrim(strs[i], "'");
-		if (!strs[i])
-		{
-			free_matrix(strs);
-			show_error(data, "ft_strtrim()", MALLOC, FAILSTD);
-		}
-	}
-	return (strs);
-}
-
 // This function will execute the command
 // The path is path from envp
 // The cmd is command
@@ -76,8 +59,7 @@ static int	exec_cmd(char *path, char *cmd, t_pipex *data)
 	char	**cmds;
 
 	status = 0;
-	cmds = ft_split(cmd, ' ');
-	// cmds = handle_quote_space(cmds, cmd, data);
+	cmds = split_plus(cmd, ' ');
 	if (!cmds)
 		show_error(data, "handle_quote_space()", MALLOC, FAILSTD);
 	abs_cmd = combine_path(path, cmds[0]);

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 10:19:58 by likong            #+#    #+#             */
-/*   Updated: 2024/08/05 17:07:21 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/06 17:12:03 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ void	success_exit(t_pipex *data)
 void	close_pipe(t_pipex *data)
 {
 	int	i;
-	// int	*fd;
-	
+
 	if (!data->fd)
 		return ;
 	i = 0;
-	while(i < data->ac - 3 - data->here_doc)
+	while (i < data->ac - 3 - data->here_doc)
 	{
 		if (data->fd[i * 2] >= 0)
 			close(data->fd[i * 2]);

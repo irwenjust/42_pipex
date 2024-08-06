@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 09:54:33 by likong            #+#    #+#             */
-/*   Updated: 2024/08/05 14:40:14 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/06 17:10:33 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	pipex(t_pipex *data)
 	status = 0;
 	while ((++i) < data->ac - 3 - data->here_doc)
 	{
-		//ft_printf("Here: %d\n", data->here_doc);
 		data->pid[i] = fork();
 		if (data->pid[i] < 0)
 			show_error(data, NULL, FORK, FAILSTD);

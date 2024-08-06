@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:33:16 by likong            #+#    #+#             */
-/*   Updated: 2024/08/05 08:50:26 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/06 17:10:16 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_pipex
 void	init_data(t_pipex *data, int argc, char **argv, char **envp);
 
 //Pipex control
-int	pipex(t_pipex *data);
+int		pipex(t_pipex *data);
 
 //Tools function
 int		open_file(t_pipex *data, int i);
