@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:43:48 by likong            #+#    #+#             */
-/*   Updated: 2024/07/28 16:31:37 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/06 14:39:44 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_str
+{
+	char	*start;
+	char	*end;
+}	t_str;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -70,5 +76,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 //New function
 void	free_matrix(char **matrix);
 int		check_white(char c);
+char	**split_plus(char *str, char c);
 
 #endif
