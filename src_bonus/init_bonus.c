@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 09:56:24 by likong            #+#    #+#             */
-/*   Updated: 2024/08/06 17:22:58 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/12 12:09:44 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	init_heredoc(t_pipex *data)
 	int		fd;
 	char	*line;
 
-	fd = open("here_doc", O_CREAT | O_WRONLY | O_EXCL | O_TRUNC, 0644);
+	fd = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		show_error(data, NULL, HERE_DOC, FAILSTD);
 	while (1)
@@ -26,11 +26,7 @@ static void	init_heredoc(t_pipex *data)
 		write(1, "> ", 2);
 		line = get_next_line(STDIN);
 		if (!line)
-		{
 			break ;
-			// close(fd);
-			// show_error(data, NULL, NEXT_LINE, FAILSTD);
-		}
 		if (ft_strncmp(line, data->av[2], ft_strlen(data->av[2])) == 0)
 			break ;
 		write(fd, line, ft_strlen(line));

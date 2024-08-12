@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 09:54:33 by likong            #+#    #+#             */
-/*   Updated: 2024/08/06 17:10:33 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/12 12:09:54 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	dup_fd(t_pipex *data, int read_fd, int write_fd)
 	close(write_fd);
 }
 
-//doubts here with fd position
 static void	handle_child(t_pipex *data, int i)
 {
 	if (i == 0)

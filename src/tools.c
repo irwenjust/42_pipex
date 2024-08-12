@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:08:12 by likong            #+#    #+#             */
-/*   Updated: 2024/08/02 10:29:47 by likong           ###   ########.fr       */
+/*   Updated: 2024/08/12 12:09:24 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	check_empty(char *str)
 	return (1);
 }
 
-//Doubts here
 void	free_close(t_pipex *data)
 {
 	if (data->infile >= 0)
