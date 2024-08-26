@@ -1,5 +1,7 @@
 # 42_pipex   
 Practice process and basic redirect project.   
+Function introduces video: https://www.youtube.com/watch?v=EqndHT606Tw&t=1s    
+One more video list recommend: https://www.youtube.com/watch?v=6xbLgZpOBi8&t=920s   
    
 The grade is 125/100.   
 
