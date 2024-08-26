@@ -38,7 +38,7 @@ $  ./pipex here_doc LIMITER cmd1 cmd2 ... cmdn file
 For example: ` ./pipex here_doc "EOF" "cat" "ls -l" "wc -l" outfile`  
 
 ## **Some tips**   
-A good test tool recommand: https://github.com/Jarnomer/pipex-error-tester?tab=readme-ov-file   
+A good test tool recommended: https://github.com/Jarnomer/pipex-error-tester?tab=readme-ov-file   
 (This tester's message is based on bash, if you use zsh the program name's position will be different. That could be fine.)   
 
-The evaluation stage could be challenge. The boundary between A and B could be flexible as subject didn't mention. So just discuss with your evaluator! (possible handle case: no path(redirect), special sign in command(like single quote in "" or sign with \ or $ sign etc)).
+The evaluation stage could be a challenge. The boundary between A and B could be flexible as the subject didn't mention. So just discuss with your evaluator! (possible handle case: no path(redirect), special sign in command(like single quote in "" or sign with \ or $ sign etc). For example: ./pipex "grep 'Error:' logfile.txt" "awk '{print $2}'").
