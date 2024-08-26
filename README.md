@@ -31,6 +31,7 @@ If run it without here_doc:
 $ ./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2  
 ```  
 For example: ` ./pipex infile "cat" "ls -l" "wc -l" outfile`  
+
 If run it with here_doc:  
 ```sh  
 $  ./pipex here_doc LIMITER cmd1 cmd2 ... cmdn file  
